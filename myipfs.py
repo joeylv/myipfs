@@ -29,12 +29,12 @@ def mzigu():
     return db().search(3, request.json['offset'])
 
 
-@app.route("/image", methods=['GET', 'POST'])
+@app.route("/image/", methods=['GET', 'POST'])
 def image():
     return render_template("index.html")
 
 
-@app.route("/upload", methods=['GET', 'POST'])
+@app.route("/upload/", methods=['GET', 'POST'])
 # @cross_origin()
 def upload():
     if request.method == 'POST':
@@ -51,7 +51,7 @@ def upload():
     return 'success'
 
 
-@app.route('/<hash>', methods=['GET'])
+@app.route('/<hash>/', methods=['GET'])
 def get(hash):
     api = ipfsapi.connect('localhost', 5001)
     res = api.cat(hash)
@@ -60,7 +60,7 @@ def get(hash):
     return resp
 
 
-@app.route('/mang', methods=['GET'])
+@app.route('/mang/', methods=['GET'])
 def mang():
     return render_template("mang.html")
 
