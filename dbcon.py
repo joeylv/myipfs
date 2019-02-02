@@ -57,8 +57,15 @@ class db(object):
         self.cur.execute(sql)
         self.con.commit()
 
-    def search(self, limit, offset):
-        rows = self.cur.execute('select hash from images  order by id desc limit {}  offset {}'.format(limit, offset))
+    def search(self, offset, limit):
+        rows = self.cur.execute('select hash from images desc limit {},{}}'.format(offset, limit))
+        list_hash = ''
+        for row in rows:
+            list_hash += row[0] + ','
+        return list_hash
+
+    def random(self, limit, ):
+        rows = self.cur.execute('select hash from images order by RANDOM() desc limit {}'.format(limit))
         list_hash = ''
         for row in rows:
             list_hash += row[0] + ','
@@ -66,4 +73,4 @@ class db(object):
 
 
 if __name__ == '__main__':
-    db().search(3, 3)
+    print(db().search(3, 3))

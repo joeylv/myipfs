@@ -26,7 +26,8 @@ def mzigu():
     # if request.method == 'POST':
     print(request.json['offset'])
     # print(request.get_json(force=True))
-    return db().search(3, request.json['offset'])
+    # return db().search(request.json['offset'], 3)
+    return db().random(request.json['offset'])
 
 
 @app.route("/image/", methods=['GET', 'POST'])

@@ -49,9 +49,8 @@ $(function ($) {
             data: JSON.stringify({offset: offset}),
             statusCode: {
                 200: function (data) {
-                    console.log(data.responseText);
+                    // console.log(data.responseText);
                     $.each(data.responseText.split(','), function (i, el) {
-
                         if (el) {
                             url = "http://9kto.fun/" + el;
                             mySwiper.appendSlide('<div class="swiper-slide" >' +
@@ -59,17 +58,15 @@ $(function ($) {
                                 '<img width="100%" data-src="' + url + '" class="swiper-lazy">' +
                                 '<div class="swiper-lazy-preloader"></div></div></div>');
                         }
-                        // tukulist[i] = $(el).attr("href");
-
                     });
                 }
             },
             success: function (data) {
-                console.log('Success:::'+data);
+                console.log('Success:::' + data);
             },
-            error:function (data) {
-                console.log(data);
-            }
+            // error: function (data) {
+            //     console.log('error:::' + JSON.stringify(data));
+            // }
         });
         // $.post(path, {"offset": 10}, "json");
         // $.post(path, {"offset": 10}, function (data) {
@@ -94,7 +91,7 @@ $(function ($) {
     init();
 });
 
-var mySwiper = new Swiper('.swiper-container', {
+mySwiper = new Swiper('.swiper-container', {
     effect: 'coverflow',
     slidesPerView: 2,
     centeredSlides: true,
@@ -133,11 +130,12 @@ var mySwiper = new Swiper('.swiper-container', {
             //}
 
             if ($(slideEl).index() == this.slides.length - 2) {
-                console.log(this.slides.length);
+                // console.log(this.slides.length);
                 //    while ($(slideEL).index() >10) {
                 //        mySwiper.removeSlide([3]);
                 //    }
-                addSlide(this.slides.length);
+                // addSlide(this.slides.length - 3);
+                addSlide(3);
                 // console.log($(slideEl).index());//哪个slide里面(JQ)的图片在加载，返回slide的index
             }
             // console.log(imageEl);//哪个图片在加载，返回图片的DOM
