@@ -26,7 +26,7 @@ def mzigu():
     # if request.method == 'POST':
     print(request.json['offset'])
     # print(request.get_json(force=True))
-    return db().search(14, 3)
+    return db().search(request.json['offset'], 3)
     # return
 
 
