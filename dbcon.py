@@ -57,7 +57,7 @@ class db(object):
         self.cur.execute(sql)
         self.con.commit()
 
-    def search(self, offset, limit):
+    def search(self, limit, offset):
         rows = self.cur.execute('select hash from images limit {}  offset {}'.format(limit, offset))
         list_hash = ''
         for row in rows:
