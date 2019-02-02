@@ -24,8 +24,8 @@ def after_request(response):
 @app.route("/mzigu/", methods=['GET', 'POST'])
 def mzigu():
     # if request.method == 'POST':
-    print(request.json)
-    print(request.get_json(force=True))
+    print(request.json['offset'])
+    # print(request.get_json(force=True))
     return db().search(14, 3)
     # return
 

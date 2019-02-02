@@ -24,7 +24,7 @@ $(function ($) {
     // tukulist = [];
     path = "http://9kto.fun/mzigu/";
     init = function () {
-        addSlide();
+        addSlide(0);
         // $.get(path, function (data) {
         //     // console.log(data.split(','));
         //     // html = $.parseHTML(data);
@@ -40,25 +40,56 @@ $(function ($) {
         //     });
         // });
     };
-    addSlide = function () {
-        $.get(path, function (data) {
-            // console.log(data.split(','));
-            // html = $.parseHTML(data);
-            // list = $(html).children("a");
-            $.each(data.split(','), function (i, el) {
-                // console.log(el);
-                if (el) {
-                    url = "http://9kto.fun/get/" + el;
-                    mySwiper.appendSlide('<div class="swiper-slide" >' +
-                        '<div id="' + el + '" class="swiper-zoom-container">' +
-                        '<img width="100%" data-src="' + url + '" class="swiper-lazy">' +
-                        '<div class="swiper-lazy-preloader"></div></div></div>');
-                }
-                // tukulist[i] = $(el).attr("href");
+    addSlide = function (offset) {
+        $.ajax({
+            type: "POST",
+            url: path,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({offset: offset}),
+            statusCode: {
+                200: function (data) {
+                    console.log(data.responseText);
+                    $.each(data.responseText.split(','), function (i, el) {
 
-            });
-            // addSlide();
+                        if (el) {
+                            url = "http://9kto.fun/" + el;
+                            mySwiper.appendSlide('<div class="swiper-slide" >' +
+                                '<div id="' + el + '" class="swiper-zoom-container">' +
+                                '<img width="100%" data-src="' + url + '" class="swiper-lazy">' +
+                                '<div class="swiper-lazy-preloader"></div></div></div>');
+                        }
+                        // tukulist[i] = $(el).attr("href");
+
+                    });
+                }
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error:function (data) {
+                console.log(data);
+            }
         });
+        // $.post(path, {"offset": 10}, "json");
+        // $.post(path, {"offset": 10}, function (data) {
+        //     // console.log(data.split(','));
+        //     // html = $.parseHTML(data);
+        //     // list = $(html).children("a");
+        //     $.each(data.split(','), function (i, el) {
+        //         // console.log(el);
+        //         if (el) {
+        //             url = "http://9kto.fun/get/" + el;
+        //             mySwiper.appendSlide('<div class="swiper-slide" >' +
+        //                 '<div id="' + el + '" class="swiper-zoom-container">' +
+        //                 '<img width="100%" data-src="' + url + '" class="swiper-lazy">' +
+        //                 '<div class="swiper-lazy-preloader"></div></div></div>');
+        //         }
+        //         // tukulist[i] = $(el).attr("href");
+        //
+        //     });
+        //     // addSlide();
+        // }, 'json');
     };
     init();
 });
@@ -102,10 +133,11 @@ var mySwiper = new Swiper('.swiper-container', {
             //}
 
             if ($(slideEl).index() == this.slides.length - 2) {
+                console.log(this.slides.length);
                 //    while ($(slideEL).index() >10) {
                 //        mySwiper.removeSlide([3]);
                 //    }
-                addSlide();
+                addSlide(this.slides.length);
                 // console.log($(slideEl).index());//哪个slide里面(JQ)的图片在加载，返回slide的index
             }
             // console.log(imageEl);//哪个图片在加载，返回图片的DOM
