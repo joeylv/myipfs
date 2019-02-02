@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 import ipfsapi
-from flask import Flask, request, Response, render_template
+from flask import Flask, request, Response, render_template, url_for
 
 from dbcon import db
 
@@ -9,7 +9,7 @@ from dbcon import db
 # api = ipfsapi.connect('https://ipfs.infura.io', 5001)
 # ({ host: 'ipfs.infura.io', port: 5001, protocol: 'https' }
 
-app = Flask(__name__, static_folder='', static_url_path='')
+app = Flask(__name__, static_folder='templates/', static_url_path='')
 
 
 # CORS(app)
@@ -58,6 +58,16 @@ def get(hash):
     # print(res)
     resp = Response(res, mimetype="image/jpeg")
     return resp
+
+
+@app.route('/mang', methods=['GET'])
+def mang():
+    return render_template("mang.html")
+
+
+@app.route('/favicon.ico', methods=['GET'])
+def favicon():
+    return 'favicon.ico'
 
 
 @app.route('/', methods=['GET'])

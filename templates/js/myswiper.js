@@ -65,7 +65,7 @@ $(function ($) {
                 }
             },
             success: function (data) {
-                console.log(data);
+                console.log('Success:::'+data);
             },
             error:function (data) {
                 console.log(data);
