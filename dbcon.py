@@ -58,7 +58,7 @@ class db(object):
         self.con.commit()
 
     def search(self, limit, offset):
-        rows = self.cur.execute('select hash from images limit {}  offset {} order by id desc'.format(limit, offset))
+        rows = self.cur.execute('select hash from images  order by id desc limit {}  offset {}'.format(limit, offset))
         list_hash = ''
         for row in rows:
             list_hash += row[0] + ','
