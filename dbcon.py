@@ -7,6 +7,40 @@ def get_conn():
     return sqlite3.connect("topic.db")
 
 
+def get_cursor():
+    con = get_conn()
+    return con.cursor()
+
+
+def create_table():
+    sql = 'CREATE TABLE IF NOT EXISTS images(id INTEGER PRIMARY KEY NOT NULL, hash varchar,create_ date )'
+    get_cursor().execute(sql)
+
+
+def save(sql):
+    # print(sql)
+    # sql = "INSERT INTO images(hash)  VALUES('xxx')"
+    cur = get_cursor()
+    cur.execute(sql)
+    cur.commit()
+
+
+def search(offset, limit):
+    rows = get_cursor().execute('select hash from images desc limit {},{}}'.format(offset, limit))
+    list_hash = ''
+    for row in rows:
+        list_hash += row[0] + ','
+    return list_hash
+
+
+def random(limit, ):
+    rows = get_cursor().execute('select hash from images order by RANDOM() desc limit {}'.format(limit))
+    list_hash = ''
+    for row in rows:
+        list_hash += row[0] + ','
+    return list_hash
+
+
 class User(object):
     def __init__(self, id, name):
         self.id = id
@@ -48,8 +82,8 @@ class db(object):
         self.con = sqlite3.connect('topic.db')
         self.cur = self.con.cursor()
         # create_table()
-        self.cur.execute("CREATE TABLE IF NOT EXISTS images(id INTEGER PRIMARY KEY NOT NULL, \
-                                   hash varchar )")
+        self.cur.execute(
+            "CREATE TABLE IF NOT EXISTS images(id INTEGER PRIMARY KEY NOT NULL, hash varchar,create_ date )")
 
     def dbexec(self, sql):
         # print(sql)

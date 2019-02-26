@@ -24,7 +24,7 @@ $(function ($) {
     // tukulist = [];
     path = "http://9kto.fun/mzigu/";
     init = function () {
-        addSlide(0);
+        addSlide(3);
         // $.get(path, function (data) {
         //     // console.log(data.split(','));
         //     // html = $.parseHTML(data);
